@@ -2,34 +2,27 @@ import 'package:chat_app/components/my_button.dart';
 import 'package:chat_app/components/my_text_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+
+class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
-  const LoginPage({
-    super.key,
-    required this.onTap
-    });
+  const RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  // sign in user
-  void signIn() {}
+  void signUp() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      // The Column widget in Flutter is a layout widget that displays its children in a vertical array.
-      // Each child is placed below the previous one along the vertical axis.
-      //The children can be any widget like Text, Button, Image, etc.
-      //The Column widget takes the full height available by default.
-      //If you wrap it in a Scaffold widget like in your code, it will take the full height of the screen minus the app bar area.
         body: SafeArea(
           child: Center(
             child: Padding(
@@ -47,8 +40,8 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 50),
 
-                //welcome back message
-                const Text("Welcome back you have been missed!",
+                //create account message
+                const Text("Let's create an account for you",
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -64,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 const SizedBox(height: 10),
-
                 //password
                 MyTextField(
                 controller: passwordController,
@@ -72,12 +64,21 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 ),
 
+                const SizedBox(height: 10),
+
+                //confirm password
+                MyTextField(
+                controller: confirmPasswordController,
+                hintText: 'Confirm password',
+                obscureText: true,
+                ),
+
                 const SizedBox(height: 25),
 
-                //sign in button
+                //sign up button
                 MyButton(
-                  onTap: signIn,
-                  text: "Sign In"),
+                  onTap: signUp,
+                  text: "Sign Up"),
 
                 //not a member? register now
                 const SizedBox(height: 50),
@@ -85,16 +86,16 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Not a member?'),
-                    SizedBox(width: 4),
+                    const Text('Already a member?'),
+                    const SizedBox(width: 4),
                     GestureDetector(
                       onTap: widget.onTap,
-                      child: Text(
-                        'Register Now',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: const Text(
+                        'Login now',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
+                                        ),
                     ),
                 ],
                 ),
