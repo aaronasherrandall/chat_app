@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
+  /// A callback function that is triggered when the user taps on a specific element.
+  /// This function takes no arguments and returns no value.
   final void Function()? onTap;
   const LoginPage({
     super.key,
@@ -12,6 +14,8 @@ class LoginPage extends StatefulWidget {
     });
 
   @override
+  /// Creates the state for the LoginPage widget.
+  /// Returns an instance of _LoginPageState.
   State<LoginPage> createState() => _LoginPageState();
 }
 
