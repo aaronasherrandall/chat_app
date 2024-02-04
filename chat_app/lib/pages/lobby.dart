@@ -126,27 +126,27 @@ class _LobbyState extends State<Lobby> {
     );
   }
 
-  Widget _buildRoomList() {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, item) {
-        // room name -> divider -> room name -> divider
-        // let's return a divider on every odd occurrence
-        if (item.isOdd) return Divider();
+  // Widget _buildRoomList() {
+  //   return ListView.builder(
+  //     padding: const EdgeInsets.all(16.0),
+  //     itemBuilder: (context, item) {
+  //       // room name -> divider -> room name -> divider
+  //       // let's return a divider on every odd occurrence
+  //       if (item.isOdd) return Divider();
 
-        // calculate # of word pairs in list view - divider widget
-        final index = item ~/ 2;
+  //       // calculate # of word pairs in list view - divider widget
+  //       final index = item ~/ 2;
 
-        // generate new room
-        if (index >= _roomName.length) {
-          _roomName.add(Room(name: 'Room Name', createdBy: 'User ID', createdAt: DateTime.now()));
-        }
+  //       // generate new room
+  //       if (index >= _roomName.length) {
+  //         _roomName.add(Room(name: 'Room Name', createdBy: 'User ID', createdAt: DateTime.now(), users: [userId]));
+  //       }
 
-        // return list tile for each iteration
-        return _buildRow(_roomName[index]);
-      },
-    );
-  }
+  //       // return list tile for each iteration
+  //       return _buildRow(_roomName[index]);
+  //     },
+  //   );
+  // }
 
   Widget _buildRow(Room room) {
     return ListTile(
@@ -158,20 +158,24 @@ class _LobbyState extends State<Lobby> {
     );
   }
 
+  // Create a room at the bottom of the screen
   Future<void> createRoom(String roomName) async {
   try {
     AuthService authService = Provider.of<AuthService>(context, listen: false);
     String? userId = await authService.getCurrentUserId();
 
-    // Default to "Unknown User" if userId is null. Adjust as needed.
+     // Default to "Unknown User" if userId is null. Adjust as needed.
     String createdBy = userId ?? "Unknown Creator";
+    List<String> initialUsers = userId != null ? [userId] : [];
 
     // Logic to create room and add it to Firebase/Firestore
     // Perform the async operation
     DocumentReference roomRef = await FirebaseFirestore.instance.collection('rooms').add({
       'name': roomName,
-      'created': userId,
+      'createdBy': userId,
       'createdAt': FieldValue.serverTimestamp(),
+      // Add the user to the 'users' array in Firestore
+      'users': initialUsers, // Directly set the initial users array with the creator's userId
     });
 
     // Fetch the newly created document to get the server-resolved timestamp

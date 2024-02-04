@@ -18,6 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final userNameController = TextEditingController();
 
   void signUp() async {
     if (passwordController.text != confirmPasswordController.text) {
@@ -36,6 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
       await authService.signUpWithEmailAndPassword(
         emailController.text,
         passwordController.text,
+        userNameController.text,
         );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -98,6 +100,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: confirmPasswordController,
                 hintText: 'Confirm password',
                 obscureText: true,
+                ),
+
+                const SizedBox(height: 10),
+
+                //confirm password
+                MyTextField(
+                controller: userNameController,
+                hintText: 'Username',
+                obscureText: false,
                 ),
 
                 const SizedBox(height: 25),
