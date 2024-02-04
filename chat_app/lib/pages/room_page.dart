@@ -60,7 +60,7 @@ class RoomPage extends StatelessWidget {
             itemCount: users.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(users[index].name),
+                title: Text(users[index].username),
                 // Add more user details here as needed
               );
             },
